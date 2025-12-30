@@ -70,7 +70,7 @@ export const CreateActionForm = ({
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       <Input
         label="Nombre de la categoría*"
         placeholder="Escribir el nombre de la categoria"
@@ -84,7 +84,7 @@ export const CreateActionForm = ({
         <div className="relative">
           <textarea
             placeholder="Agregar descripción"
-            rows={4}
+            rows={3}
             maxLength={100}
             disabled={isLoading}
             className={`input resize-none w-full ${
@@ -92,7 +92,7 @@ export const CreateActionForm = ({
             }`}
             {...register("description")}
           />
-          <div className="absolute bottom-3 right-3 text-xs text-gray-400">
+          <div className="absolute bottom-2 right-2 text-xs text-gray-400">
             {descriptionValue?.length || 0}/100
           </div>
         </div>
@@ -103,13 +103,13 @@ export const CreateActionForm = ({
 
       <div>
         <label className="label">Logo*</label>
-        <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 bg-gray-50">
+        <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 bg-gray-50">
           {iconPreview ? (
-            <div className="flex flex-col items-start gap-3">
+            <div className="flex items-center gap-3">
               <img
                 src={iconPreview}
                 alt="Preview"
-                className="w-24 h-24 object-cover rounded-lg"
+                className="w-16 h-16 object-cover rounded-lg"
               />
               <button
                 type="button"
@@ -129,9 +129,9 @@ export const CreateActionForm = ({
                 className="hidden"
                 disabled={isLoading}
               />
-              <div className="flex flex-col items-center gap-3">
+              <div className="flex flex-col items-center justify-center gap-2 py-2">
                 <svg
-                  className="w-16 h-16 text-gray-400"
+                  className="w-10 h-10 text-gray-400"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -165,27 +165,25 @@ export const CreateActionForm = ({
               className={`input ${errors.color ? "input-error" : ""}`}
               {...register("color")}
             />
-            {errors.color && (
-              <p className="error-text mt-1">{errors.color.message}</p>
-            )}
           </div>
-          <div className="flex items-center gap-2">
-            <input
-              type="color"
-              value={colorValue}
-              onChange={(e) => setValue("color", e.target.value.toUpperCase())}
-              disabled={isLoading}
-              className="w-12 h-12 rounded-md border-2 border-gray-300 cursor-pointer"
-              title="Seleccionar color"
-            />
-          </div>
+          <input
+            type="color"
+            value={colorValue}
+            onChange={(e) => setValue("color", e.target.value.toUpperCase())}
+            disabled={isLoading}
+            className="w-11 h-11 rounded-md border-2 border-gray-300 cursor-pointer"
+            title="Seleccionar color"
+          />
         </div>
-        <p className="text-xs text-gray-500 mt-2">
+        {errors.color && (
+          <p className="error-text">{errors.color.message}</p>
+        )}
+        <p className="text-xs text-gray-500 mt-1">
           Selecciona un color o ingresa un código HEX
         </p>
       </div>
 
-      <div className="flex items-center justify-between py-2">
+      <div className="flex items-center justify-between py-1">
         <span className="text-sm font-medium text-gray-700">Activo</span>
         <button
           type="button"
@@ -204,12 +202,12 @@ export const CreateActionForm = ({
       </div>
 
       {error && (
-        <div className="bg-status-error/10 border border-status-error rounded-lg p-3">
+        <div className="bg-status-error/10 border border-status-error rounded-lg p-2.5">
           <p className="text-sm text-status-error text-center">{error}</p>
         </div>
       )}
 
-      <div className="flex gap-4 pt-4">
+      <div className="flex gap-3 pt-2">
         <button
           type="button"
           onClick={onCancel}
