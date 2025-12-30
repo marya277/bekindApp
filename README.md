@@ -161,9 +161,11 @@ src/
 ### Pasos
 
 1. **Clonar el repositorio**
+
 ```bash
-git clone <repository-url>
+git clone https://github.com/marya277/bekindApp.git
 cd bekind
+
 ```
 
 2. **Instalar dependencias**
