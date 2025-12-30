@@ -1,12 +1,14 @@
-
 import { useEffect, useState } from 'react';
 import { useActionsStore } from '../store/actionsStore';
+import { useHeaderStore } from '../store/headerStore';
 import { ActionsTable } from '../components/actions/ActionsTable';
 import { Pagination } from '../components/ui/Pagination';
 import { Drawer } from '../components/ui/Drawer';
 import { CreateActionForm } from '../components/actions/CreateActionForm';
 
 const Dashboard = () => {
+  const setHeader = useHeaderStore((state) => state.setHeader);
+  
   const {
     actions,
     totalPages,
@@ -21,10 +23,16 @@ const Dashboard = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   useEffect(() => {
+    // Configura el header al montar el componente
+    setHeader('Categorías', [
+      { label: 'Inicio', href: '/dashboard' },
+      { label: 'Categorías' }
+    ]);
+    
     fetchActions({ pageNumber: 1, pageSize: 10 });
-  }, []); 
+  }, [setHeader]);
 
- const handlePageChange = (page: number) => {
+  const handlePageChange = (page: number) => {
     console.log('🔍 Dashboard - handlePageChange:', page);
     setPage(page);
   };
@@ -36,13 +44,11 @@ const Dashboard = () => {
   return (
     <>
       <div className="space-y-6">
+        {/* Barra de acción con botón y contador */}
         <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-bold text-gray-900">Categorías</h1>
-            <p className="text-sm text-gray-500 mt-1">
-              {totalElements} categorías en total
-            </p>
-          </div>
+          <p className="text-sm text-gray-500">
+            {totalElements} categorías en total
+          </p>
           <button 
             className="btn-primary"
             onClick={() => setIsDrawerOpen(true)}
@@ -51,6 +57,7 @@ const Dashboard = () => {
           </button>
         </div>
 
+        {/* Barra de búsqueda y filtros */}
         <div className="card p-4">
           <div className="flex items-center gap-4">
             <div className="flex-1">
@@ -89,16 +96,19 @@ const Dashboard = () => {
           </div>
         </div>
 
+        {/* Mensajes de error */}
         {error && (
           <div className="bg-status-error/10 border border-status-error rounded-card p-4">
             <p className="text-status-error">{error}</p>
           </div>
         )}
 
+        {/* Tabla de acciones */}
         <div className="card overflow-visible">
           <ActionsTable actions={actions} isLoading={isLoading} />
         </div>
 
+        {/* Paginación */}
         {!isLoading && totalPages > 1 && (
           <div className="flex justify-center">
             <Pagination
@@ -110,6 +120,7 @@ const Dashboard = () => {
         )}
       </div>
 
+      {/* Drawer para crear categoría */}
       <Drawer
         isOpen={isDrawerOpen}
         onClose={() => setIsDrawerOpen(false)}
