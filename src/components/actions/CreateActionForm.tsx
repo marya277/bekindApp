@@ -1,21 +1,22 @@
-// components/actions/CreateActionForm.tsx
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useState } from 'react';
-import { useActionsStore } from '../../store/actionsStore';
-import { Input, Loader } from '../ui';
-import { createActionSchema, type CreateActionFormData } from '../../schemas';
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
+import { useActionsStore } from "../../store/actionsStore";
+import { Input, Loader } from "../ui";
+import { createActionSchema, type CreateActionFormData } from "../../schemas";
 
 interface CreateActionFormProps {
   onSuccess?: () => void;
   onCancel?: () => void;
 }
 
-export const CreateActionForm = ({ onSuccess, onCancel }: CreateActionFormProps) => {
+export const CreateActionForm = ({
+  onSuccess,
+  onCancel,
+}: CreateActionFormProps) => {
   const { createAction, isLoading, error, clearError } = useActionsStore();
-  const [iconPreview, setIconPreview] = useState<string>('');
+  const [iconPreview, setIconPreview] = useState<string>("");
 
-  // Configuración de React Hook Form con Zod
   const {
     register,
     handleSubmit,
@@ -25,25 +26,22 @@ export const CreateActionForm = ({ onSuccess, onCancel }: CreateActionFormProps)
   } = useForm<CreateActionFormData>({
     resolver: zodResolver(createActionSchema),
     defaultValues: {
-      name: '',
-      description: '',
-      color: '#00A896',
+      name: "",
+      description: "",
+      color: "#00A896",
       status: 1,
     },
   });
 
-  // Observar valores
-  const colorValue = watch('color');
-  const statusValue = watch('status');
-  const descriptionValue = watch('description');
+  const colorValue = watch("color");
+  const statusValue = watch("status");
+  const descriptionValue = watch("description");
 
-  // Handler para cambio de archivo
   const handleIconChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setValue('icon', file, { shouldValidate: true });
-      
-      // Generar preview
+      setValue("icon", file, { shouldValidate: true });
+
       const reader = new FileReader();
       reader.onloadend = () => {
         setIconPreview(reader.result as string);
@@ -52,65 +50,66 @@ export const CreateActionForm = ({ onSuccess, onCancel }: CreateActionFormProps)
     }
   };
 
-  // Handler para remover archivo
   const handleRemoveIcon = () => {
-    setValue('icon', undefined as any, { shouldValidate: true });
-    setIconPreview('');
-    // Reset del input file
-    const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
-    if (fileInput) fileInput.value = '';
+    setValue("icon", undefined as any, { shouldValidate: true });
+    setIconPreview("");
+    const fileInput = document.querySelector(
+      'input[type="file"]'
+    ) as HTMLInputElement;
+    if (fileInput) fileInput.value = "";
   };
 
-  // Handler del submit
   const onSubmit = async (data: CreateActionFormData) => {
     clearError();
     try {
       await createAction(data);
       onSuccess?.();
     } catch (err) {
-      console.error('Error al crear acción:', err);
+      console.error("Error al crear acción:", err);
     }
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-      {/* Nombre */}
       <Input
         label="Nombre de la categoría*"
-        placeholder="Escribir el nombre de la buena acción"
+        placeholder="Escribir el nombre de la categoria"
         disabled={isLoading}
         error={errors.name?.message}
-        {...register('name')}
+        {...register("name")}
       />
 
-      {/* Descripción */}
       <div>
-        <label className="label">Descripción de la buena acción*</label>
+        <label className="label">Descripción de la categoria*</label>
         <div className="relative">
           <textarea
             placeholder="Agregar descripción"
             rows={4}
             maxLength={100}
             disabled={isLoading}
-            className={`input resize-none w-full ${errors.description ? 'input-error' : ''}`}
-            {...register('description')}
+            className={`input resize-none w-full ${
+              errors.description ? "input-error" : ""
+            }`}
+            {...register("description")}
           />
           <div className="absolute bottom-3 right-3 text-xs text-gray-400">
             {descriptionValue?.length || 0}/100
           </div>
         </div>
-        {errors.description && <p className="error-text">{errors.description.message}</p>}      </div>
+        {errors.description && (
+          <p className="error-text">{errors.description.message}</p>
+        )}{" "}
+      </div>
 
-      {/* Logo/Icono */}
       <div>
         <label className="label">Logo*</label>
         <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center bg-gray-50">
           {iconPreview ? (
             <div className="flex flex-col items-center gap-3">
-              <img 
-                src={iconPreview} 
-                alt="Preview" 
-                className="w-24 h-24 object-cover rounded-lg" 
+              <img
+                src={iconPreview}
+                alt="Preview"
+                className="w-24 h-24 object-cover rounded-lg"
               />
               <button
                 type="button"
@@ -131,25 +130,27 @@ export const CreateActionForm = ({ onSuccess, onCancel }: CreateActionFormProps)
                 disabled={isLoading}
               />
               <div className="flex flex-col items-center gap-3">
-                <svg 
-                  className="w-16 h-16 text-gray-400" 
-                  fill="none" 
-                  viewBox="0 0 24 24" 
+                <svg
+                  className="w-16 h-16 text-gray-400"
+                  fill="none"
+                  viewBox="0 0 24 24"
                   stroke="currentColor"
                 >
-                  <path 
-                    strokeLinecap="round" 
-                    strokeLinejoin="round" 
-                    strokeWidth={1.5} 
-                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" 
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={1.5}
+                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
                   />
                 </svg>
-                <span className="text-sm text-gray-600 font-medium">Carga archivo</span>
+                <span className="text-sm text-gray-600 font-medium">
+                  Carga archivo
+                </span>
               </div>
             </label>
           )}
         </div>
-       {errors.icon && <p className="error-text">{errors.icon.message}</p>}
+        {errors.icon && <p className="error-text">{errors.icon.message}</p>}
       </div>
 
       <div>
@@ -161,16 +162,18 @@ export const CreateActionForm = ({ onSuccess, onCancel }: CreateActionFormProps)
               placeholder="#00A896"
               maxLength={7}
               disabled={isLoading}
-              className={`input ${errors.color ? 'input-error' : ''}`}
-              {...register('color')}
+              className={`input ${errors.color ? "input-error" : ""}`}
+              {...register("color")}
             />
-            {errors.color && <p className="error-text mt-1">{errors.color.message}</p>}
+            {errors.color && (
+              <p className="error-text mt-1">{errors.color.message}</p>
+            )}
           </div>
           <div className="flex items-center gap-2">
             <input
               type="color"
               value={colorValue}
-              onChange={(e) => setValue('color', e.target.value.toUpperCase())}
+              onChange={(e) => setValue("color", e.target.value.toUpperCase())}
               disabled={isLoading}
               className="w-12 h-12 rounded-md border-2 border-gray-300 cursor-pointer"
               title="Seleccionar color"
@@ -186,15 +189,15 @@ export const CreateActionForm = ({ onSuccess, onCancel }: CreateActionFormProps)
         <span className="text-sm font-medium text-gray-700">Activo</span>
         <button
           type="button"
-          onClick={() => setValue('status', statusValue === 1 ? 0 : 1)}
+          onClick={() => setValue("status", statusValue === 1 ? 0 : 1)}
           className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-            statusValue === 1 ? 'bg-brand-primary' : 'bg-gray-300'
+            statusValue === 1 ? "bg-brand-primary" : "bg-gray-300"
           }`}
           disabled={isLoading}
         >
           <span
             className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-              statusValue === 1 ? 'translate-x-6' : 'translate-x-1'
+              statusValue === 1 ? "translate-x-6" : "translate-x-1"
             }`}
           />
         </button>
@@ -226,7 +229,7 @@ export const CreateActionForm = ({ onSuccess, onCancel }: CreateActionFormProps)
               <span>Creando...</span>
             </>
           ) : (
-            'Crear'
+            "Crear"
           )}
         </button>
       </div>

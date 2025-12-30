@@ -2,14 +2,14 @@ import { useState } from 'react';
 import { useHeaderStore } from '../../store/headerStore';
 
 export const Header = () => {
-  const {  breadcrumbs } = useHeaderStore();
+  const { title, breadcrumbs } = useHeaderStore();
   const [isProfileOpen, setIsProfileOpen] = useState(false);
 
   return (
     <header className="bg-brand-navy border-b border-brand-navy-dark sticky top-0 z-40 shadow-md">
       <div className="px-8 py-4">
         <div className="flex items-center justify-between">
-          {/* Left: Logo + Breadcrumbs & Title */}
+          {/* Left: Logo + Title */}
           <div className="flex items-center gap-6">
             {/* Logo */}
             <img 
@@ -18,7 +18,7 @@ export const Header = () => {
               className="h-8 w-auto"
             />
             
-            {/* Breadcrumbs & Title */}
+            {/* Title */}
             <div className="flex flex-col gap-1">
               {breadcrumbs.length > 0 && (
                 <nav className="flex items-center gap-2 text-sm">
@@ -55,11 +55,13 @@ export const Header = () => {
                   ))}
                 </nav>
               )}
-             
+              <h1 className="text-2xl font-bold text-white">{title}</h1>
             </div>
           </div>
 
+          {/* Right: Notifications & User Profile */}
           <div className="flex items-center gap-4">
+            {/* Notifications */}
             <button className="relative p-2 text-white hover:text-pastel-yellow hover:bg-brand-navy-dark rounded-lg transition-all">
               <svg
                 className="w-6 h-6"
