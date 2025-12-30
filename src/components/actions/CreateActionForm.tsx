@@ -98,14 +98,14 @@ export const CreateActionForm = ({
         </div>
         {errors.description && (
           <p className="error-text">{errors.description.message}</p>
-        )}{" "}
+        )}
       </div>
 
       <div>
         <label className="label">Logo*</label>
-        <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center bg-gray-50">
+        <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 bg-gray-50">
           {iconPreview ? (
-            <div className="flex flex-col items-center gap-3">
+            <div className="flex flex-col items-start gap-3">
               <img
                 src={iconPreview}
                 alt="Preview"
