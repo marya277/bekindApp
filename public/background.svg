@@ -1,0 +1,43 @@
+<svg width="900" height="600" viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Paleta (rojo, amarillo, azul, verde, teal, rosa, navy oscuro) -->
+  <!-- Rojo: #FF3B30 | Amarillo: #FFD60A | Azul: #0A84FF | Verde: #34C759 | Teal: #64D2FF | Rosa: #FF2D55 | Navy: #0B1B2B -->
+
+  <!-- Grupo superior izquierdo -->
+  <circle cx="140" cy="120" r="70" fill="#FF3B30"/>
+  <path d="M260,60 a60,60 0 0 1 120,0 L380,60 a60,60 0 0 0 -120,0Z" fill="#FFD60A"/>
+  <circle cx="320" cy="160" r="60" fill="#0A84FF"/>
+
+  <!-- Semicírculos superpuestos -->
+  <path d="M180,260 a80,80 0 0 1 160,0 L180,260Z" fill="#34C759"/>
+  <path d="M180,260 a80,80 0 0 0 160,0 L340,260Z" fill="#64D2FF"/>
+
+  <!-- Bloque central -->
+  <circle cx="470" cy="220" r="80" fill="#FF2D55"/>
+  <path d="M470,220 m-80,0 a80,80 0 0 1 160,0" fill="none" stroke="#0B1B2B" stroke-width="22" stroke-linecap="round"/>
+
+  <!-- Arco y círculo a la derecha -->
+  <path d="M650,110 a90,90 0 0 1 180,0" fill="none" stroke="#FFD60A" stroke-width="28" stroke-linecap="round"/>
+  <circle cx="750" cy="220" r="65" fill="#0A84FF"/>
+  <path d="M750,220 a65,65 0 0 1 65,65 h-130 a65,65 0 0 1 65,-65Z" fill="#34C759"/>
+
+  <!-- Franja inferior con semicírculos apilados -->
+  <path d="M120,520 a90,90 0 0 0 180,0 L120,520Z" fill="#FF3B30"/>
+  <path d="M210,520 a90,90 0 0 0 180,0 L210,520Z" fill="#0A84FF" opacity="0.95"/>
+  <path d="M300,520 a90,90 0 0 0 180,0 L300,520Z" fill="#FFD60A"/>
+  <path d="M390,520 a90,90 0 0 0 180,0 L390,520Z" fill="#64D2FF"/>
+  <path d="M480,520 a90,90 0 0 0 180,0 L480,520Z" fill="#FF2D55"/>
+
+  <!-- Detalles de contraste -->
+  <circle cx="600" cy="380" r="50" fill="#0B1B2B"/>
+  <circle cx="600" cy="380" r="28" fill="#FFD60A"/>
+
+  <!-- Aros finos para nitidez -->
+  <circle cx="250" cy="380" r="55" fill="none" stroke="#FF2D55" stroke-width="10"/>
+  <circle cx="250" cy="380" r="32" fill="#34C759"/>
+  <circle cx="250" cy="380" r="18" fill="#0A84FF"/>
+
+  <!-- Pequeños acentos -->
+  <circle cx="820" cy="90" r="14" fill="#FF3B30"/>
+  <circle cx="70"  cy="420" r="12" fill="#64D2FF"/>
+  <circle cx="860" cy="540" r="16" fill="#FFD60A"/>
+</svg>
