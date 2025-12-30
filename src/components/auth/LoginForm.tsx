@@ -1,79 +1,33 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuthStore } from '../../store/authStore';
 import { Input, Loader } from '../ui';
+import { loginSchema, type LoginFormData } from '../../schemas';
 
 export const LoginForm = () => {
-  const [username, setUsername] = useState(''); 
-  const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState<{ username?: string; password?: string }>({});
   const { login, isLoading, error, clearError } = useAuthStore();
   const navigate = useNavigate();
 
-  const validateUsername = (username: string): string | undefined => {
-    if (!username) {
-      return 'El correo electrónico es obligatorio';
-    }
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(username)) {
-      return 'Ingresa un correo electrónico válido';
-    }
-    return undefined;
-  };
+  // Configuración de React Hook Form con Zod
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormData>({
+    resolver: zodResolver(loginSchema),
+    mode: 'onBlur', // Valida cuando pierdes el foco
+  });
 
-  const validatePassword = (password: string): string | undefined => {
-    if (!password) {
-      return 'La contraseña es obligatoria';
-    }
-    if (password.length < 8) {
-      return 'La contraseña debe tener al menos 8 caracteres';
-    }
-    return undefined;
-  };
-
-  const validateForm = (): boolean => {
-    const usernameError = validateUsername(username);
-    const passwordError = validatePassword(password);
-
-    setErrors({
-      username: usernameError,
-      password: passwordError,
-    });
-
-    return !usernameError && !passwordError;
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  // Handler del submit - recibe datos ya validados
+  const onSubmit = async (data: LoginFormData) => {
     clearError();
-    setErrors({});
-
-    if (!validateForm()) {
-      return;
-    }
-
     try {
-      await login({ username, password }); 
+      await login(data);
       navigate('/dashboard');
     } catch (err) {
       console.error('Error en login:', err);
     }
-  };
-
-  const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUsername(e.target.value);
-    if (errors.username) {
-      setErrors({ ...errors, username: undefined });
-    }
-    clearError();
-  };
-
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-    if (errors.password) {
-      setErrors({ ...errors, password: undefined });
-    }
-    clearError();
   };
 
   return (
@@ -85,29 +39,30 @@ export const LoginForm = () => {
         </h1>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        {/* Campo Email */}
         <Input
           label="Correo Electrónico*"
           type="email"
-          value={username}
-          onChange={handleUsernameChange}
           placeholder="Ingresar correo"
           disabled={isLoading}
-          error={errors.username}
+          error={errors.username?.message}
           autoComplete="email"
+          {...register('username')}
         />
 
+        {/* Campo Contraseña */}
         <Input
           label="Contraseña*"
           type="password"
-          value={password}
-          onChange={handlePasswordChange}
           placeholder="Ingresa tu contraseña"
           disabled={isLoading}
-          error={errors.password}
+          error={errors.password?.message}
           autoComplete="current-password"
+          {...register('password')}
         />
 
+        {/* Error del servidor */}
         {error && (
           <div className="bg-status-error/10 border border-status-error rounded-input p-3">
             <p className="text-sm text-status-error font-medium text-center">
@@ -116,12 +71,14 @@ export const LoginForm = () => {
           </div>
         )}
 
+        {/* Link recuperar contraseña */}
         <div className="text-center">
-          <a href="#" className="text-sm text-brand-primary hover:underline">
-            Recuperar contraseña
-          </a>
+          <Link to="/forgot-password" className="text-sm text-brand-primary hover:underline">
+            ¿Olvidaste tu contraseña?
+          </Link>
         </div>
 
+        {/* Botón submit */}
         <button
           type="submit"
           className="w-full btn-primary flex items-center justify-center"

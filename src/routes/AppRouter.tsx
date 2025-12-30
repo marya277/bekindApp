@@ -5,6 +5,7 @@ import { ProtectedRoute } from './ProtectedRoute';
 import { PublicRoute } from './PublicRoute';
 import Login from '../pages/Login';
 import Dashboard from '../pages/Dashboard';
+import ForgotPassword from '../pages/ForgotPassword';
 
 export const AppRouter = () => {
   return (
@@ -13,6 +14,7 @@ export const AppRouter = () => {
         {/* Rutas públicas */}
         <Route element={<PublicRoute />}>
           <Route path="/login" element={<Login />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
         </Route>
         
         {/* Rutas protegidas */}

@@ -2,7 +2,7 @@ import { LoginForm } from '../components/auth/LoginForm';
 
 export const Login = () => {
   return (
-    <div className="login-background min-h-screen flex items-center justify-center p-6">
+    <div className="login-background flex items-center justify-center min-h-screen p-6">
       <LoginForm />
     </div>
   );
