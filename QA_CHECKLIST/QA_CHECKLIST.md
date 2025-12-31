@@ -114,7 +114,7 @@
 ![Dashboard con listado de acciones](./qa-screenshots/dashboardListado.png)
 
 **Estado:** ✅ PASS  
-**Fecha:** 30/12/2024
+**Fecha:** 30/12/2025
 
 ---
 
@@ -190,7 +190,7 @@
 ![Drawer de creación abierto](./qa-screenshots/drawerCrear.png)
 
 **Estado:** ✅ PASS  
-**Fecha:** 30/12/2024
+**Fecha:** 30/12/2025
 
 ---
 
