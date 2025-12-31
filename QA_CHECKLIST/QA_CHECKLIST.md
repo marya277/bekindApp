@@ -3,7 +3,7 @@
 ## 📋 Información General
 
 **Proyecto:** Be Kind Network - Panel de Administración  
-**Fecha de pruebas:** 30/12/2024  
+**Fecha de pruebas:** 30/12/2025  
 **Tester:** Maria Elena Arroyo  
 **Versión:** 1.0.0  
 **Entorno:**
@@ -45,7 +45,7 @@
 ![Dashboard tras login exitoso](./qa-screenshots/loginExitoso.png)
 
 **Estado:** ✅ PASS  
-**Fecha:** 30/12/2024
+**Fecha:** 30/12/2025
 
 ---
 
@@ -68,7 +68,7 @@
 ![Error de autenticación](./qa-screenshots/errorPassword.png)
 
 **Estado:** ✅ PASS  
-**Fecha:** 30/12/2024
+**Fecha:** 30/12/2025
 
 ---
 
@@ -89,7 +89,7 @@
 ![Validación campos vacíos](./qa-screenshots/validacionCamposVacios.png)
 
 **Estado:** ✅ PASS  
-**Fecha:** 30/12/2024
+**Fecha:** 30/12/2025
 
 ---
 
@@ -140,7 +140,7 @@
 ![Paginación en página 2](./qa-screenshots/paginacion.png)
 
 **Estado:** ✅ PASS  
-**Fecha:** 30/12/2024
+**Fecha:** 30/12/2025
 
 ---
 
@@ -167,7 +167,7 @@
 ![Menú de filtros desplegado](./qa-screenshots/filtrosMenu.png)
 
 **Estado:** ✅ PASS  
-**Fecha:** 30/12/2024
+**Fecha:** 30/12/2025
 
 ---
 
@@ -218,7 +218,7 @@
 ![Acción creada exitosamente](./qa-screenshots/accionCreada.png)
 
 **Estado:** ✅ PASS  
-**Fecha:** 30/12/2024
+**Fecha:** 30/12/2025
 
 ---
 
@@ -242,7 +242,7 @@
 ![Validaciones en formulario](./qa-screenshots/validacionesFormulario.png)
 
 **Estado:** ✅ PASS  
-**Fecha:** 30/12/2024
+**Fecha:** 30/12/2025
 
 ---
 
@@ -267,7 +267,7 @@
 ![Preview de archivo subido](./qa-screenshots/previewArchivo.png)
 
 **Estado:** ✅ PASS  
-**Fecha:** 30/12/2024
+**Fecha:** 30/12/2025
 
 ---
 
@@ -297,4 +297,4 @@ Todos los flujos críticos funcionan correctamente:
 **Estado del proyecto:** ✅ READY FOR REVIEW
 
 **Firma:** Maria Elena Arroyo 
-**Fecha:** 30/12/2024
+**Fecha:** 30/12/2025
